@@ -49,6 +49,31 @@ sudo sudo visudo
 ```
 Then add the following text `grader ALL=(ALL:ALL) ALL`
 
--verify grader sudo permissions.
-- switch to the grader user: `su - grader` then type the password
-- list any sudo privileges you have `sudo -l` then type the password
+- verify grader sudo permissions.
+	- switch to the grader user: `su - grader` then type the password
+	- list any sudo privileges you have `sudo -l` then type the password
+
+#### Setup SSH keys for grader
+* On local machine 
+	`ssh-keygen`
+	- Enter the default path and name the file grader_key `~/.ssh/grader_key`.
+	- Copy the public key from the grader_key.pub file.
+	```
+	cat ~/.ssh/grader_key.pub
+	```
+* On remote machine home as user grader
+	- Create .ssh directory in the home directory, and authorized_keys file in that directory
+	```
+	mkdir .ssh
+	touch .ssh/authorized_keys
+	```
+	Change permission of .ssh and .ssh/authorized_keys
+	```
+	sudo chmod 700 .ssh
+	sudo chmod 600 .ssh/authorized_keys
+	```
+	add the public key to the authorized_keys
+	```
+	nano .ssh/authorized_keys
+	```
+	Then paste the contents of the public key copied from the grader_key.pub on the local machine
