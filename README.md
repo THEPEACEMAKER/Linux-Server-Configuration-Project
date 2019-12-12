@@ -267,3 +267,22 @@ $ sudo nano /etc/apache2/sites-available/catalog.conf
 `$ sudo a2ensite catalog`
 - Reload apache service:
 `$ sudo service apache2 reload`
+
+#### Create the .wsgi File
+-Apache uses the .wsgi file to serve the Flask app. Move to the /var/www/catalog directory and create a file named catalog.wsgi
+```
+$ cd /var/www/catalog/
+$ sudo nano catalog.wsgi
+```
+Add the following lines of code:
+```python
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0, "/var/www/catalog/")
+
+from catalog import app as application
+application.secret_key = 'secret'
+```
+#### Restart Apache
+- Run `sudo service apache2 restart` to restart apache service.
