@@ -302,6 +302,7 @@ application.secret_key = 'secret'
 Sources: [DigitalOcean-1](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
 
 ### Setting up OAuth2.0
+-----------------
 #### Google OAuth
 1. Go to [Google APIs Console](https://console.developers.google.com)
 2. Sign in to your account or make a new one.
@@ -315,3 +316,10 @@ Sources: [DigitalOcean-1](https://www.digitalocean.com/community/tutorials/how-t
 10. Copy the client ID and paste it into the `client_id` fields in login.html and main.html files.
 11. On the Google APIs Console page download the JSON file and rename it to client_secrets.json.
 12. Place the JSON file into catalog app directory.
+
+## Launch the app
+- in the /var/www/catalog
+- Run `sudo chown -R www-data:www-data catalog/` to change the owner of all the directories and files of the app.
+- Run `sudo service apache2 restart` to restart apache service.
+- Now you should be able to launch the application at http://YOUR_INSTANCE_PUBLIC_IP.
+- You can access my app at http://3.8.150.202.xip.io/.
