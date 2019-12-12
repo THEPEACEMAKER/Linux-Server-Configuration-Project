@@ -27,3 +27,16 @@ The application deployed here is the **[Item Catalog - Restaurants and Menus](ht
 - Give your instance a hostname.
 - Then click `Create` to create the instance.
 - Wait for it to start up.
+
+#### Connect to the Server using ssh
+- Open the instance you created on Amazon Lightsail.
+- Click on `connect` tab and click on `Account page` at the end of the page then download the Default Private Key.
+- In a terminal window run the following command after you specify the requeired information
+```
+ssh -i /path/my-key-pair.pem THE_USER_NAME_FOR_YOUR_AMI@ec2-YOUR_INSTANCE_PUBLIC_IP.compute.amazonaws.com
+```
+  In my case:
+```
+ssh -i LightsailDefaultKey.pem ubuntu@ec2-3-8-150-202.eu-west-2.compute.amazonaws.com
+```
+Source: [Connecting to Your Linux Instance Using SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html).
