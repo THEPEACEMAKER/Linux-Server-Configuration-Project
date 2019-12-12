@@ -40,3 +40,15 @@ ssh -i /path/my-key-pair.pem THE_USER_NAME_FOR_YOUR_AMI@ec2-YOUR_INSTANCE_PUBLIC
 ssh -i LightsailDefaultKey.pem ubuntu@ec2-3-8-150-202.eu-west-2.compute.amazonaws.com
 ```
 Source: [Connecting to Your Linux Instance Using SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html).
+
+### Give grader access
+#### Create a new user grader and Give him `sudo` access
+```
+sudo adduser grader
+sudo sudo visudo
+```
+Then add the following text `grader ALL=(ALL:ALL) ALL`
+
+-verify grader sudo permissions.
+- switch to the grader user: `su - grader` then type the password
+- list any sudo privileges you have `sudo -l` then type the password
