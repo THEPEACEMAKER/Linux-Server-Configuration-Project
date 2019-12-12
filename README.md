@@ -136,3 +136,31 @@ sudo update-locale LANG=en_US.utf8 LANGUAGE=en_US.utf8 LC_ALL=en_US.utf8
 3. `$ sudo a2enmod wsgi` to enable *mod_wsgi*.
 4. `$ sudo service apache2 start`.
 5. `$ sudo apt-get install git`.
+
+### Install and configure PostgreSQL
+
+1. Install some necessary Python packages for working with PostgreSQL: `$ sudo apt-get install libpq-dev python-dev`.
+2. Install PostgreSQL: `$ sudo apt-get install postgresql postgresql-contrib`
+3. PostgreSQL automatically creates a new user 'postgres' during its installation. So we can connect to the database by using postgres username with: `$ sudo -u postgres psql`
+4. Create a new user called 'catalog' with a 'catalog' password: `# CREATE USER catalog WITH PASSWORD 'catalog';`
+5. Give *catalog* user the CREATEDB permission: `# ALTER USER catalog CREATEDB;`
+6. Create the 'catalog' database owned by *catalog* user: `# CREATE DATABASE catalog WITH OWNER catalog;`
+7. Connect to the database: `# \c catalog`
+8. Revoke all the rights: `# REVOKE ALL ON SCHEMA public FROM public;`
+9. Lock down the permissions to only let *catalog* role create tables: `# GRANT ALL ON SCHEMA public TO catalog;`
+10. Log out from PostgreSQL: `# \q`. Then return to the *grader* user: `$ exit`.
+11. Edit the `database_setup.py` and `lotsofmenus.py` file:   
+      Change `engine = create_engine('sqlite:///category.db')`
+      to `engine = create_engine('postgresql://catalog:catalog@localhost/catalog')`
+12. Remote connections to PostgreSQL should already be blocked. Double check by opening the config file:
+    ```
+    $ sudo nano /etc/postgresql/9.5/main/pg_hba.conf
+    ```
+    your file should look like this code :
+    ```
+    local   all             postgres                                peer
+    local   all             all                                     peer
+    host    all             all             127.0.0.1/32            md5
+    host    all             all             ::1/128                 md5
+    ```
+Source: [DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps).
