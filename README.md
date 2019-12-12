@@ -110,3 +110,20 @@ $ sudo ufw allow 123/udp
 $ sudo ufw allow 2200/tcp
 $ sudo ufw enable
 ```
+
+### Prepare to deploy the project
+-----------------
+- Connect to yor server instance as grader user:
+```
+ssh -i /path/to/grader_key grader@ec2-YOUR_INSTANCE_PUBLIC_IP.compute.amazonaws.com
+```
+  In my case:
+```
+ssh -i grader_key -p 2200 grader@ec2-3-8-150-202.eu-west-2.compute.amazonaws.com
+```
+
+#### 2. Change timezone to UTC and Fix language issues
+```
+sudo timedatectl set-timezone UTC
+sudo update-locale LANG=en_US.utf8 LANGUAGE=en_US.utf8 LC_ALL=en_US.utf8
+```
