@@ -211,3 +211,26 @@ Source: [DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-s
     ```
       CLIENT_SECRET_FILE = '/var/www/catalog/catalog/client_secrets.json'
     ```
+
+#### Setting up a virtual environment
+Setting up a virtual environment will keep the application and its dependencies isolated from the main system. Changes to it will not affect the cloud server's system configurations.
+3. Install pip , virtualenv (in /var/www/catalog)
+   ```
+   $ sudo apt-get install python-pip
+   $ sudo pip install virtualenv
+   $ sudo virtualenv venv
+   $ source venv/bin/activate
+   $ sudo chmod -R 777 venv
+   ```
+4. Install Flask and other dependencies (in /var/www/catalog/catalog) :
+```
+  pip install flask
+  pip install sqlalchemy
+  pip install psycopg2
+  pip install httplib2
+  pip install requests
+  pip install --upgrade oauth2client
+  <!-- ADEL: you might need more -->
+```
+- `python __init__.py` to test that everything works fine.
+- `deactivate` to deactivate the virtual environment.
