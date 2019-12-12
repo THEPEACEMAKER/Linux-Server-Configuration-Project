@@ -301,3 +301,17 @@ application.secret_key = 'secret'
 
 Sources: [DigitalOcean-1](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
 
+### Setting up OAuth2.0
+#### Google OAuth
+1. Go to [Google APIs Console](https://console.developers.google.com)
+2. Sign in to your account or make a new one.
+3. Create a New Project.
+4. Choose Credentials from the menu on the left.
+5. Choose Web application.
+6. Enter name 'Catalog Item'.
+7. Set the authorized JavaScript origins = 'http://YOUR_INSTANCE_PUBLIC_IP'.
+8. Set the authorized redirect URIs = 'http://YOUR_DOMAIN_NAME'.
+9. You will then be able to get the client ID and client secret.
+10. Copy the client ID and paste it into the `client_id` fields in login.html and main.html files.
+11. On the Google APIs Console page download the JSON file and rename it to client_secrets.json.
+12. Place the JSON file into catalog app directory.
