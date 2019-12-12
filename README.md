@@ -234,3 +234,36 @@ Setting up a virtual environment will keep the application and its dependencies 
 ```
 - `python __init__.py` to test that everything works fine.
 - `deactivate` to deactivate the virtual environment.
+
+#### Configure and enable a new virtual host
+- make a catalog.conf file
+```
+$ sudo nano /etc/apache2/sites-available/catalog.conf
+```
+- Add the following lines of code to the file to configure the virtual host.
+```
+  <VirtualHost *:80>
+    ServerName YOUR_INSTANCE_PUBLIC_IP
+    ServerAlias ec2-YOUR_INSTANCE_PUBLIC_IP.compute.amazonaws.com
+    ServerAdmin grader@YOUR_INSTANCE_PUBLIC_IP
+    WSGIDaemonProcess catalog python-path=/var/www/catalog:/var/www/catalog/venv/lib/python2.7/site-packages
+    WSGIProcessGroup catalog
+    WSGIScriptAlias / /var/www/catalog/catalog.wsgi
+    <Directory /var/www/catalog/catalog/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    Alias /static /var/www/catalog/catalog/static
+    <Directory /var/www/catalog/catalog/static/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    LogLevel warn
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+  </VirtualHost>
+```
+- Enable the virtual host:
+`$ sudo a2ensite catalog`
+- Reload apache service:
+`$ sudo service apache2 reload`
