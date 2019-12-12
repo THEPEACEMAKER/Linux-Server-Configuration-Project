@@ -286,3 +286,18 @@ application.secret_key = 'secret'
 ```
 #### Restart Apache
 - Run `sudo service apache2 restart` to restart apache service.
+
+#### Setting Up the Database
+- Run `cd /var/www/catalog/`.
+- Run `. venv/bin/activate` to activate the environment.
+- Run `cd catalog/`.
+- Run `python database_setup.py` to setup the database.
+- Run `python lotsofmenus.py` to fill the database with some data.
+- Run `deactivate` to deactivate the virtual environment.
+
+#### Disable defualt Apache page
+- Run `sudo a2dissite 000-default.conf`.
+- Run `sudo service apache2 reload` to reload apache service.
+
+Sources: [DigitalOcean-1](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
+
