@@ -98,3 +98,15 @@ sudo nano /etc/ssh/sshd_config
    3. Change `Port` from `22` to `2200`.
    4. Change `PermitRootLogin` to `no`
 - Save the file and run `sudo service ssh restart`
+
+#### Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123).
+- In AWS Lightsail Security Group,  add these rules ports 80(TCP), 123(UDP), and 2200(TCP), and delete port 22.
+- in the terminal
+```bash
+$ sudo ufw default deny incoming
+$ sudo ufw default allow outgoing
+$ sudo ufw allow www
+$ sudo ufw allow 123/udp
+$ sudo ufw allow 2200/tcp
+$ sudo ufw enable
+```
