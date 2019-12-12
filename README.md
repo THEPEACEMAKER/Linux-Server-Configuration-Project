@@ -122,8 +122,17 @@ ssh -i /path/to/grader_key grader@ec2-YOUR_INSTANCE_PUBLIC_IP.compute.amazonaws.
 ssh -i grader_key -p 2200 grader@ec2-3-8-150-202.eu-west-2.compute.amazonaws.com
 ```
 
-#### 2. Change timezone to UTC and Fix language issues
+#### Change timezone to UTC and Fix language issues
 ```
 sudo timedatectl set-timezone UTC
 sudo update-locale LANG=en_US.utf8 LANGUAGE=en_US.utf8 LC_ALL=en_US.utf8
 ```
+
+#### Install Apache, mod_wsgi and Git
+
+1. `$ sudo apt-get install apache2`.
+2. `$ sudo apt-get install libapache2-mod-wsgi python-dev` to install *mod_wsgi*.
+	Note: For Python3 replace `libapache2-mod-wsgi` with `libapache2-mod-wsgi-py3`
+3. `$ sudo a2enmod wsgi` to enable *mod_wsgi*.
+4. `$ sudo service apache2 start`.
+5. `$ sudo apt-get install git`.
