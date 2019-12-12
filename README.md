@@ -88,3 +88,13 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
 ```
+
+#### Change the SSH port from 22 to 2200 | Enforce key-based authentication | Disable login for root user
+```
+sudo nano /etc/ssh/sshd_config
+```
+- Then change the following:
+   2. Change `PasswordAuthentication` to `no`.
+   3. Change `Port` from `22` to `2200`.
+   4. Change `PermitRootLogin` to `no`
+- Save the file and run `sudo service ssh restart`
