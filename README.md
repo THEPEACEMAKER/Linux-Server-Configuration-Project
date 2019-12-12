@@ -19,6 +19,7 @@ The application deployed here is the **[Item Catalog - Restaurants and Menus](ht
 
 ## Configurations Steps
 ### Get your server
+-----------------
 #### Start a new Ubuntu Linux server instance on Amazon Lightsail.
 - Login into [Amazon Lightsail](https://lightsail.aws.amazon.com/ls/webapp/home/resources) using your Amazon Web Services account. If you don't already have an Amazon Web Services account, you'll be prompted to create one.
 - Once you are login into, `Create instance`. 
@@ -42,6 +43,7 @@ ssh -i LightsailDefaultKey.pem ubuntu@ec2-3-8-150-202.eu-west-2.compute.amazonaw
 Source: [Connecting to Your Linux Instance Using SSH](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html).
 
 ### Give grader access
+-----------------
 #### Create a new user grader and Give him `sudo` access
 ```
 sudo adduser grader
@@ -77,3 +79,12 @@ Then add the following text `grader ALL=(ALL:ALL) ALL`
 	nano .ssh/authorized_keys
 	```
 	Then paste the contents of the public key copied from the grader_key.pub on the local machine
+
+### Secure your server
+-----------------
+#### Update all currently installed packages.
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+```
