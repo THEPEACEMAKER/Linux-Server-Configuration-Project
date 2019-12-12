@@ -137,7 +137,7 @@ sudo update-locale LANG=en_US.utf8 LANGUAGE=en_US.utf8 LC_ALL=en_US.utf8
 4. `$ sudo service apache2 start`.
 5. `$ sudo apt-get install git`.
 
-### Install and configure PostgreSQL
+#### Install and configure PostgreSQL
 
 1. Install some necessary Python packages for working with PostgreSQL: `$ sudo apt-get install libpq-dev python-dev`.
 2. Install PostgreSQL: `$ sudo apt-get install postgresql postgresql-contrib`
@@ -164,3 +164,50 @@ sudo update-locale LANG=en_US.utf8 LANGUAGE=en_US.utf8 LC_ALL=en_US.utf8
     host    all             all             ::1/128                 md5
     ```
 Source: [DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps).
+
+#### Configure Apache to serve a Python mod_wsgi application
+
+1. Clone the *Item Catalog - Restaurants and Menus* app from Github in the /var/www/catalog/catalog directory.
+   ```
+   $ cd /var/www
+   $ sudo mkdir catalog
+   $ sudo chown -R grader:grader catalog
+   $ cd catalog
+   $ git clone https://github.com/THEPEACEMAKER/itemsCatalog catalog
+   ```
+   Run `mv application.py __init__.py` to rename `application.py` to `__init__.py`.
+       - In `__init__.py` replace :
+    ```
+      app.debug = True
+      app.run(host='0.0.0.0', port=5000)
+    ```
+    to :
+    ```
+      app.run()
+    ```
+    - In `__init__.py`, `database_setup.py` and `lotsofmenus.py` replace :
+    ```
+      engine = create_engine('sqlite:///restaurantmenuwithusers.db')
+    ```
+    to :
+    ```
+      engine = create_engine('postgresql://catalog:catalog@localhost/catalog')
+    ```
+    - In `__init__.py` replace :
+    ```
+      CLIENT_ID = json.loads(
+        open('client_secrets.json', 'r').read())['web']['client_id']      
+    ```
+    to :
+    ```
+      CLIENT_ID = json.loads(
+        open(r'/var/www/catalog/catalog/client_secrets.json').read())['web']['client_id']
+    ```
+    and
+    ```
+      CLIENT_SECRET_FILE = 'client_secrets.json'
+    ```
+    to :
+    ```
+      CLIENT_SECRET_FILE = '/var/www/catalog/catalog/client_secrets.json'
+    ```
